@@ -6,7 +6,7 @@ const MysiteRouter = () => {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path="/diccionary" element={<Diccionary/>}/>
+                <Route path="/" element={<Diccionary/>}/>
                 <Route path="/test" element={<>test2</>}/>
             </Routes>
         </BrowserRouter>
