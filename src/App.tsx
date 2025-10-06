@@ -26,8 +26,15 @@ function App() {
         </p>
       </div>
       <p className="read-the-docs">
-        Logré que esto funcione!!!
+        Mira mi gata: <br />
       </p>
+
+      <img src="./pelusa3.jpg" alt="" 
+      style={{
+        height: '400px'
+      }}
+      />
+      
     </>
   )
 }
