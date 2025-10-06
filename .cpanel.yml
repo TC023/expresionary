@@ -2,4 +2,5 @@
 deployment:
   tasks:
     - export DEPLOYPATH=/home/expresionary/public_html/
-    - /bin/cp -R dist $DEPLOYPATH
+    - mkdir -p "$DEPLOYPATH"
+    - /bin/cp -a dist/. "$DEPLOYPATH"
