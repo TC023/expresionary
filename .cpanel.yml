@@ -1,0 +1,5 @@
+---
+deployment:
+  tasks:
+    - npm run build
+    - export DEPLOYPATH=/home/expresionary/repositories/expresionary/dist
