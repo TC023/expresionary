@@ -1,4 +1,4 @@
 ---
 deployment:
   tasks:
-    - export DEPLOYPATH=/home/expresionary/public_html
+    - export DEPLOYPATH=/home/expresionary/repositories/expresionary/dist
