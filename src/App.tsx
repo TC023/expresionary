@@ -1,9 +1,23 @@
+import { ConfigProvider } from 'antd'
 import MysiteRouter from './components/router'
 
 function App() {
 
   return (
-    <MysiteRouter/>
+    <ConfigProvider
+      theme={{
+        token: {
+          colorPrimary: '#10b981',
+
+          colorBgLayout: '#fcfcfe'
+
+          // colorBgContainer: '#122447ff',
+          // colorBgBase: '#122447ff'
+        }
+      }}
+    >
+      <MysiteRouter/>
+    </ConfigProvider>
   )
 }
 
