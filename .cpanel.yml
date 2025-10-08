@@ -5,4 +5,4 @@ deployment:
     - mkdir -p "$DEPLOYPATH"
     - /bin/cp -a dist/. "$DEPLOYPATH"
     - mkdir -p "$DEPLOYPATH/../server"
-    - /bin/cp -a server/. "$DEPLOYPATH/../server"
+    - /bin/cp -a server/dsit/. "$DEPLOYPATH/../server"
