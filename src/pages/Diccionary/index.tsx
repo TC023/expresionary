@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { Button, Layout, Card, Input, Avatar, Typography, Space, Tag, Row, Col } from 'antd';
+import "/node_modules/flag-icons/css/flag-icons.min.css";
 
 const { Content } = Layout;
 
@@ -52,6 +53,8 @@ const Diccionary: React.FC = () => {
             </Col>
           </Row>
 
+          
+
           {/* Search */}
           <div style={{ marginBottom: 18 }}>
             <Input.Search
@@ -65,9 +68,9 @@ const Diccionary: React.FC = () => {
           {/* Language chips */}
           <div style={{ marginBottom: 22 }}>
             <Space wrap>
-              <Tag style={{ borderRadius: 8, padding: '6px 12px' }}>🇺🇸 Inglés</Tag>
-              <Tag style={{ borderRadius: 8, padding: '6px 12px' }}>🇪🇸 Español</Tag>
-              <Tag style={{ borderRadius: 8, padding: '6px 12px' }}>🇫🇷 Francés</Tag>
+              <Tag style={{ borderRadius: 8, padding: '6px 12px' }}><span className="fi fi-us"></span> Inglés</Tag>
+              <Tag style={{ borderRadius: 8, padding: '6px 12px' }}><span className="fi fi-fr"></span> Francés</Tag>
+              <Tag style={{ borderRadius: 8, padding: '6px 12px' }}><span className="fi fi-de"></span> Aleman</Tag>
             </Space>
           </div>
 
