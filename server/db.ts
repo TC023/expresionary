@@ -1,4 +1,7 @@
-import { createPool, Pool } from 'mysql2/promise'
+import { config } from 'dotenv'
+import { createPool, Pool, QueryResult } from 'mysql2/promise'
+
+config();
 
 // Config from env vars with sensible defaults for local development
 const DB_HOST = process.env.DB_HOST || 'localhost'
@@ -18,12 +21,8 @@ export const pool: Pool = createPool({
   queueLimit: 0,
 })
 
-export async function query<T = any>(sql: string, params?: any[]): Promise<T[]> {
-  // mysql2's typed `query` generic is constrained to specific result shapes
-  // which makes it inconvenient to forward a generic `T` from this helper.
-  // Use an explicit cast from unknown to the expected tuple shape so callers
-  // can request `T` and we return `T[]` without a type error.
-  const [rows] = (await pool.query(sql, params)) as unknown as [T[], any]
+export async function query(sql: string, params?: any[]): Promise<QueryResult> {
+  const [rows] = (await pool.query(sql, params))
   return rows
 }
 

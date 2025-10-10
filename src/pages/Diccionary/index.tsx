@@ -1,7 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-import { Button, Layout, Card, Input, Avatar, Typography, Space, Tag, Row, Col } from 'antd';
+import { 
+  Button, 
+  Layout, 
+  Card, 
+  Input, 
+  Avatar, 
+  Typography, 
+  Space, 
+  Tag, 
+  Row, 
+  Col,
+  AutoComplete, 
+  type AutoCompleteProps,
+  Spin
+} from 'antd';
 import "/node_modules/flag-icons/css/flag-icons.min.css";
+
+import apiClient from '../../apiClient';
 
 const { Content } = Layout;
 
@@ -9,6 +25,22 @@ const { Title, Text, Paragraph } = Typography;
 
 const Diccionary: React.FC = () => {
 
+  const [options, setOptions] = useState<AutoCompleteProps['options']>([]);
+  const [isSearching, setisSearching] = useState(false)
+
+  const fetchExpressions = async (searchQuery: string) => {
+    try {
+      const response = await apiClient.get('/search', {
+        params: { search: searchQuery },
+      });
+      return response.data;
+    } catch (error: any) {
+      console.error('Error fetching expressions:', error);
+      throw error;
+    }
+  };
+
+  
   return (
     <Layout style={{ minHeight: '100vh', padding: 24, background: '#f5f7fb' }}>
       <Content
@@ -57,6 +89,22 @@ const Diccionary: React.FC = () => {
 
           {/* Search */}
           <div style={{ marginBottom: 18 }}>
+            <AutoComplete
+              options={options}
+              size='large'
+              style={{width: '100%'}}
+              onSearch={(text) => {
+                setisSearching(true);
+                setTimeout(() => {
+                  setisSearching(false);
+                }, 500);
+                setOptions([{value: text}])
+              }}
+              placeholder="Busca un idiom, jerga o proverbio"
+              popupRender={(e) => (isSearching ? <Spin style={{width: '100%'}} /> : e)}
+            >
+
+            </AutoComplete>
             <Input.Search
               placeholder="Busca un idiom, jerga o proverbio"
               enterButton={false}
@@ -97,6 +145,10 @@ const Diccionary: React.FC = () => {
             </Button>
           </div>
         </Card>
+
+        <button onClick={async () => {
+          console.log(await fetchExpressions('Break'))
+        }}>test</button>
       </Content>
     </Layout>
   );
