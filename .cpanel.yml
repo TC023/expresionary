@@ -6,6 +6,3 @@ deployment:
     - mkdir -p "$DEPLOYPATH"
     # copy the frontend build output (dist) into the public_html folder
     - /bin/cp -a dist/. "$DEPLOYPATH"
-    # create (if needed) and copy the server build output into the sibling server folder
-    - mkdir -p "$DEPLOYPATH/../server"
-    - /bin/cp -a server/dist/. "$DEPLOYPATH/../server"
