@@ -59,6 +59,31 @@ app.get('/expression', async (req: Request, res: Response) => {
     }
 });
 
+app.get('/daily', async (req: Request, res: Response) => {
+    try {
+        const rows = await query(`
+SELECT di.*, i.*
+FROM daily_idiom AS di
+JOIN expresiones AS i ON di.expresion_id = i.id
+WHERE di.selected_date = CURDATE();
+`);
+        res.json({ ok: true, rows });
+    } catch (err: any) {
+        console.error('Daily query failed', err);
+        res.status(500).json({ ok: false, error: err.message || String(err) });
+    }
+});
+
+app.get('/random', async (req: Request, res: Response) => {
+    try {
+        const rows = await query('SELECT * FROM expresiones ORDER BY RAND() LIMIT 1');
+        res.json({ ok: true, rows });
+    } catch (err: any) {
+        console.error('Random query failed', err);
+        res.status(500).json({ ok: false, error: err.message || String(err) });
+    }
+});
+
 const PORT = process.env.PORT ? parseInt(process.env.PORT, 10) : 3000;
 app.listen(PORT, () => {
     console.log(`Servidor corriendo en el puerto ${PORT}`);
