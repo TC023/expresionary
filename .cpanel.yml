@@ -1,12 +1,6 @@
 ---
 deployment:
   tasks:
-    # path on the cPanel server where the frontend build should be deployed
     - export DEPLOYPATH=/home/expresionary/public_html/
     - mkdir -p "$DEPLOYPATH"
-    # copy the frontend build output (dist) into the public_html folder
     - /bin/cp -a dist/. "$DEPLOYPATH"
-    # copy all the contents of server/dist into server
-    # - export DEPLOYSERVER=/home/expresionary/server
-    # - mkdir -p "$DEPLOYSERVER"
-    # - /bin/cp -a server/dist/. "$DEPLOYSERVER"
