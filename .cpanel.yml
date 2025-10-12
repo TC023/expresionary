@@ -8,4 +8,4 @@ deployment:
     - /bin/cp -a dist/. "$DEPLOYPATH"
 
     # copy all the contents of server/dist into server
-    - /bin/cp -a server/dist/. server/
+    - /bin/cp -a server/dist/. $DEPLOYPATH/../server/
