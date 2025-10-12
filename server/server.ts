@@ -1,6 +1,11 @@
 import express, { Request, Response } from 'express'
+import jwt from "jsonwebtoken";
+
 import cors from 'cors'
 import { query, ping } from './db'
+import { ResultSetHeader, RowDataPacket } from 'mysql2';
+
+
 
 const app = express()
 
@@ -8,6 +13,31 @@ const app = express()
 app.use(cors({
     origin: ['https://www.expresionary.com.mx', 'https://expresionary.com.mx', 'http://localhost:5173'], // Include all relevant origins
 }))
+
+// Middleware to parse JSON bodies
+app.use(express.json());
+
+const SECRET = 'HALLO, There once was a ship that put to sea'
+
+interface AuthRequest extends Request {
+    user?: string | jwt.JwtPayload;
+}
+
+function authMiddleware(req: AuthRequest, res: Response, next: () => void): void {
+    const header = req.headers.authorization;
+    if (!header) {
+        res.status(401).json({ message: "Missing token" });
+        return;
+    }
+    const token = header.split(" ")[1];
+    try {
+        const decoded = jwt.verify(token, SECRET);
+        req.user = decoded;
+        next();
+    } catch {
+        res.status(401).json({ message: "Invalid token" });
+    }
+}
 
 app.get('/test', (req: Request, res: Response) => {
     res.json({msg: 'hi from backend'})
@@ -83,6 +113,68 @@ app.get('/random', async (req: Request, res: Response) => {
         res.status(500).json({ ok: false, error: err.message || String(err) });
     }
 });
+
+app.post('/users/new', async (req: Request, res: Response) => {
+    const { email, password } = req.body; 
+
+    if ( !email || !password) {
+        return res.status(400).json({ ok: false, error: 'Missing required fields: username, email, or password' });
+    }
+
+    try {
+        const result = await query(
+            `INSERT INTO usuario ( email, pass, role) VALUES (?, ?, 'base')`,
+            [email, password]
+        ) as ResultSetHeader;
+
+        const userId = result.insertId; // Assuming insertId is returned by the query function
+        const token = jwt.sign({ id: userId, email }, SECRET, { expiresIn: "1d" });
+
+        res.json({ ok: true, token });
+    } catch (err: any) {
+        console.error('User creation failed', err);
+        res.status(500).json({ ok: false, error: err.message || String(err) });
+    }
+});
+
+app.post('/users/login', async (req: Request, res: Response) => {
+    const { email, password } = req.body;
+
+    if (!email || !password) {
+        return res.status(400).json({ ok: false, error: 'Missing email or password' });
+    }
+
+    try {
+        const rows = await query('SELECT * FROM usuario WHERE email = ? ', [email]) as RowDataPacket[];
+
+        const user = rows[0];
+
+        if (user.pass !== password) {
+            return res.status(401).json({ message: "Invalid password" });
+        }
+
+        const token = jwt.sign({ id: user.id, email: user.email }, SECRET, { expiresIn: "1d" });
+        res.json({ token });
+        
+    } catch (err: any) {
+        console.error('Login failed', err);
+        res.status(500).json({ ok: false, error: err.message || String(err) });
+    }
+});
+
+app.get("/profile", authMiddleware, async (req: AuthRequest, res: Response) => {
+    const rows = await query("SELECT id, email, role FROM usuario WHERE id = ?", [(req.user as any).id]) as RowDataPacket[];
+    // console.log(rows)
+    res.status(200).json(rows[0]);
+});
+
+// app.get("/me", (req, res) => {
+//     if (req.session.user) {
+//         res.json(req.session.user);
+//     } else {
+//         res.status(401).json({ error: "Not authenticated" });
+//     }
+// });
 
 const PORT = process.env.PORT ? parseInt(process.env.PORT, 10) : 3000;
 app.listen(PORT, () => {
