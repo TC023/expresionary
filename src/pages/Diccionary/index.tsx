@@ -18,10 +18,11 @@ import "/node_modules/flag-icons/css/flag-icons.min.css";
 
 import { RightOutlined } from '@ant-design/icons';
 
-import LoginModal from '../components/loginModal';
+import LoginModal from './components/loginModal';
 import apiClient from '../../apiClient';
 import { useUser } from '../../contexts/UserContext';
 
+import PremiumModal from './components/premiumModal';
 
 
 const { Content } = Layout;
@@ -54,6 +55,7 @@ const Diccionary: React.FC = () => {
 
   const [searchOptions, setSearchOptions] = useState<Record<string, any>>({})
   const [showModal, setShowModal] = useState(false)
+  const [showPModal, setShowPModal] = useState(false)
 
   const { user, setUser } = useUser()
 
@@ -64,6 +66,14 @@ const Diccionary: React.FC = () => {
   //   console.log('user', user)
   // }
 
+  const handleShowPremium = () => {
+    if (!user) {
+      setShowModal(true)
+    } else {
+      setShowPModal(true)
+    }
+  }
+  
   const fetchExpressions = async (searchQuery: string) => {
     try {
       const response = await apiClient.get('/search', {
@@ -169,9 +179,16 @@ const Diccionary: React.FC = () => {
                     </Button>
                   </>
                 )}
-                <Button type="primary" style={{ borderRadius: 6 }}>
+
+                {user?.role !== 'premium' && (
+
+                  
+                  <Button type="primary" style={{ borderRadius: 6 }}
+                  onClick={handleShowPremium} 
+                >
                   Hazte Premium
                 </Button>
+                )}
               </Space>
             </Col>
           </Row>
@@ -259,32 +276,51 @@ const Diccionary: React.FC = () => {
               </div>
 
               {user?.role !== 'premium' && (
-
-              <div
-                style={{
-                  marginTop: 24,
-                  padding: 16,
-                  border: '1px dashed #d9d9d9',
-                  borderRadius: 8,
-                  textAlign: 'center',
-                  backgroundColor: '#fafafa',
-                }}
-              >
-                <Title level={5} style={{ marginBottom: 8 }}>
-                  ¡Conviértete en Premium!
-                </Title>
-                <Text type="secondary" style={{ display: 'block', marginBottom: 16 }}>
-                  Desbloquea más expresiones, ejemplos y contenido exclusivo.
-                </Text>
-                <Button
-                  type="primary"
-                  style={{ borderRadius: 6 }}
-                  onClick={() => setShowModal(true)}
+                <div
+                  style={{
+                    marginTop: 24,
+                    padding: 16,
+                    border: '1px dashed #d9d9d9',
+                    borderRadius: 8,
+                    textAlign: 'center',
+                    backgroundColor: '#fafafa',
+                  }}
                 >
-                  Hazte Premium
-                </Button>
-              </div>
+                  <Title level={5} style={{ marginBottom: 8 }}>
+                    ¡Conviértete en Premium!
+                  </Title>
+                  <Text type="secondary" style={{ display: 'block', marginBottom: 16 }}>
+                    Desbloquea más expresiones, ejemplos y contenido exclusivo.
+                  </Text>
+                  <Button
+                    type="primary"
+                    style={{ borderRadius: 6 }}
+                    onClick={handleShowPremium}
+                  >
+                    Hazte Premium
+                  </Button>
+                </div>
               )}
+              {user?.role === 'premium' && (
+                <>
+                  <Row style={{ marginTop: 24 }}>
+                  <Col span={24}>
+                      <Title level={5} style={{ marginBottom: 8, color: '#4c1d95' }}>
+                    Tipo de expresión:
+                    </Title>
+                    <Text>{expressionFound?.categoria}</Text>
+                  </Col>
+                  </Row>
+                  <Row style={{ marginTop: 16 }}>
+                  <Col span={24}>
+                      <Title level={5} style={{ marginBottom: 8, color: '#4c1d95' }}>
+                    Uso:
+                    </Title>
+                    <Text>{expressionFound?.uso}</Text>
+                  </Col>
+                  </Row>
+                </>
+          )}
 
 
             </>
@@ -369,6 +405,12 @@ const Diccionary: React.FC = () => {
         visible={showModal}
         onClose={() => { setShowModal(false) }}
       />
+
+      <PremiumModal 
+        open={showPModal}
+        handleClose={() => {setShowPModal(false)}} 
+      />
+      
     </Layout>
   );
 };

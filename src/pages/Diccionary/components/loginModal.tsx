@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Modal, Form, Input, Button, Tabs, message } from 'antd';
-import apiClient from '../../apiClient';
-import { useUser } from '../../contexts/UserContext';
+import { useUser } from '../../../contexts/UserContext';
+import apiClient from '../../../apiClient';
 
 const { TabPane } = Tabs;
 

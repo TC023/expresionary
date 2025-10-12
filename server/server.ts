@@ -168,6 +168,26 @@ app.get("/profile", authMiddleware, async (req: AuthRequest, res: Response) => {
     res.status(200).json(rows[0]);
 });
 
+app.get('/users/upgrade', authMiddleware, async (req: AuthRequest, res: Response) => {
+    try {
+        const userId = (req.user as any).id;
+
+        const result = await query(
+            'UPDATE usuario SET role = ? WHERE id = ?',
+            ['premium', userId]
+        ) as ResultSetHeader;
+
+        if (result.affectedRows === 0) {
+            return res.status(404).json({ ok: false, error: 'User not found' });
+        }
+
+        res.json({ ok: true, message: 'User role updated to premium' });
+    } catch (err: any) {
+        console.error('Upgrade to premium failed', err);
+        res.status(500).json({ ok: false, error: err.message || String(err) });
+    }
+});
+
 // app.get("/me", (req, res) => {
 //     if (req.session.user) {
 //         res.json(req.session.user);
