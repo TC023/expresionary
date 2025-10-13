@@ -154,7 +154,7 @@ const Diccionary: React.FC = () => {
               </Space>
             </Col>
             <Col>
-              <Space>
+              <Space wrap style={{ justifyContent: 'center' }}> {/* Added wrap and center alignment */}
                 {!user && (
                   <Text style={{ cursor: 'pointer', padding: '30px' }}
                   onClick={() => setShowModal(true)}
