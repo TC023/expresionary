@@ -39,12 +39,12 @@ function authMiddleware(req: AuthRequest, res: Response, next: () => void): void
     }
 }
 
-app.get('/test', (req: Request, res: Response) => {
+app.get('/api/test', (req: Request, res: Response) => {
     res.json({msg: 'hi from backend'})
 })
 
 // simple endpoint that runs a small query against MySQL
-app.get('/dbtest', async (req: Request, res: Response) => {
+app.get('/api/dbtest', async (req: Request, res: Response) => {
     try {
         // ensure pool can connect
         await ping()
@@ -57,7 +57,7 @@ app.get('/dbtest', async (req: Request, res: Response) => {
     }
 })
 
-app.get('/search', async (req: Request, res: Response) => {
+app.get('/api/search', async (req: Request, res: Response) => {
     const search = req.query.search as string;
 
     if (!search) {
@@ -73,7 +73,7 @@ app.get('/search', async (req: Request, res: Response) => {
     }
 });
 
-app.get('/expression', async (req: Request, res: Response) => {
+app.get('/api/expression', async (req: Request, res: Response) => {
     const expresion = req.query.expresion as string;
 
     if (!expresion) {
@@ -89,7 +89,7 @@ app.get('/expression', async (req: Request, res: Response) => {
     }
 });
 
-app.get('/daily', async (req: Request, res: Response) => {
+app.get('/api/daily', async (req: Request, res: Response) => {
     try {
         const rows = await query(`
 SELECT di.*, i.*
@@ -104,7 +104,7 @@ WHERE di.selected_date = CURDATE();
     }
 });
 
-app.get('/random', async (req: Request, res: Response) => {
+app.get('/api/random', async (req: Request, res: Response) => {
     try {
         const rows = await query('SELECT * FROM expresiones ORDER BY RAND() LIMIT 1');
         res.json({ ok: true, rows });
@@ -114,7 +114,7 @@ app.get('/random', async (req: Request, res: Response) => {
     }
 });
 
-app.post('/users/new', async (req: Request, res: Response) => {
+app.post('/api/users/new', async (req: Request, res: Response) => {
     const { email, password } = req.body; 
 
     if ( !email || !password) {
@@ -137,7 +137,7 @@ app.post('/users/new', async (req: Request, res: Response) => {
     }
 });
 
-app.post('/users/login', async (req: Request, res: Response) => {
+app.post('/api/users/login', async (req: Request, res: Response) => {
     const { email, password } = req.body;
 
     if (!email || !password) {
@@ -162,13 +162,13 @@ app.post('/users/login', async (req: Request, res: Response) => {
     }
 });
 
-app.get("/profile", authMiddleware, async (req: AuthRequest, res: Response) => {
+app.get("/api/profile", authMiddleware, async (req: AuthRequest, res: Response) => {
     const rows = await query("SELECT id, email, role FROM usuario WHERE id = ?", [(req.user as any).id]) as RowDataPacket[];
     // console.log(rows)
     res.status(200).json(rows[0]);
 });
 
-app.get('/users/upgrade', authMiddleware, async (req: AuthRequest, res: Response) => {
+app.get('/api/users/upgrade', authMiddleware, async (req: AuthRequest, res: Response) => {
     try {
         const userId = (req.user as any).id;
 

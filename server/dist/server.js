@@ -31,11 +31,11 @@ function authMiddleware(req, res, next) {
         res.status(401).json({ message: "Invalid token" });
     }
 }
-app.get('/test', (req, res) => {
+app.get('/api/test', (req, res) => {
     res.json({ msg: 'hi from backend' });
 });
 // simple endpoint that runs a small query against MySQL
-app.get('/dbtest', async (req, res) => {
+app.get('/api/dbtest', async (req, res) => {
     try {
         // ensure pool can connect
         await (0, db_1.ping)();
@@ -48,7 +48,7 @@ app.get('/dbtest', async (req, res) => {
         res.status(500).json({ ok: false, error: err.message || String(err) });
     }
 });
-app.get('/search', async (req, res) => {
+app.get('/api/search', async (req, res) => {
     const search = req.query.search;
     if (!search) {
         return res.status(400).json({ ok: false, error: 'Missing search query parameter' });
@@ -62,7 +62,7 @@ app.get('/search', async (req, res) => {
         res.status(500).json({ ok: false, error: err.message || String(err) });
     }
 });
-app.get('/expression', async (req, res) => {
+app.get('/api/expression', async (req, res) => {
     const expresion = req.query.expresion;
     if (!expresion) {
         return res.status(400).json({ ok: false, error: 'Missing expresion query parameter' });
@@ -76,7 +76,7 @@ app.get('/expression', async (req, res) => {
         res.status(500).json({ ok: false, error: err.message || String(err) });
     }
 });
-app.get('/daily', async (req, res) => {
+app.get('/api/daily', async (req, res) => {
     try {
         const rows = await (0, db_1.query)(`
 SELECT di.*, i.*
@@ -91,7 +91,7 @@ WHERE di.selected_date = CURDATE();
         res.status(500).json({ ok: false, error: err.message || String(err) });
     }
 });
-app.get('/random', async (req, res) => {
+app.get('/api/random', async (req, res) => {
     try {
         const rows = await (0, db_1.query)('SELECT * FROM expresiones ORDER BY RAND() LIMIT 1');
         res.json({ ok: true, rows });
@@ -101,7 +101,7 @@ app.get('/random', async (req, res) => {
         res.status(500).json({ ok: false, error: err.message || String(err) });
     }
 });
-app.post('/users/new', async (req, res) => {
+app.post('/api/users/new', async (req, res) => {
     const { email, password } = req.body;
     if (!email || !password) {
         return res.status(400).json({ ok: false, error: 'Missing required fields: username, email, or password' });
@@ -117,7 +117,7 @@ app.post('/users/new', async (req, res) => {
         res.status(500).json({ ok: false, error: err.message || String(err) });
     }
 });
-app.post('/users/login', async (req, res) => {
+app.post('/api/users/login', async (req, res) => {
     const { email, password } = req.body;
     if (!email || !password) {
         return res.status(400).json({ ok: false, error: 'Missing email or password' });
@@ -136,12 +136,12 @@ app.post('/users/login', async (req, res) => {
         res.status(500).json({ ok: false, error: err.message || String(err) });
     }
 });
-app.get("/profile", authMiddleware, async (req, res) => {
+app.get("/api/profile", authMiddleware, async (req, res) => {
     const rows = await (0, db_1.query)("SELECT id, email, role FROM usuario WHERE id = ?", [req.user.id]);
     // console.log(rows)
     res.status(200).json(rows[0]);
 });
-app.get('/users/upgrade', authMiddleware, async (req, res) => {
+app.get('/api/users/upgrade', authMiddleware, async (req, res) => {
     try {
         const userId = req.user.id;
         const result = await (0, db_1.query)('UPDATE usuario SET role = ? WHERE id = ?', ['premium', userId]);
