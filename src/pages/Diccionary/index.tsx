@@ -4,7 +4,6 @@ import {
   Button,
   Layout,
   Card,
-  Avatar,
   Typography,
   Space,
   Tag,
@@ -142,7 +141,7 @@ const Diccionary: React.FC = () => {
           <Row align="middle" justify="space-between" style={{ marginBottom: 18 }}>
             <Col>
               <Space align="center">
-                <Avatar style={{ backgroundColor: '#5b21b6' }}>E</Avatar>
+                <img src="Elogo.png" alt="Elogo" style={{ width: 40, height: 40, borderRadius: '50%' }} />
                 <div style={{ marginBottom: 12 }}>
                   <Title level={4} style={{ margin: 0 }}>
                     EXPRESIONARY
