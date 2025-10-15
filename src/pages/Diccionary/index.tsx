@@ -143,7 +143,7 @@ const Diccionary: React.FC = () => {
               <Space align="center">
                 <img src="Elogo.png" alt="Elogo" style={{ width: 40, height: 40, borderRadius: '50%' }} />
                 <div style={{ marginBottom: 12 }}>
-                  <Title level={4} style={{ margin: 0 }}>
+                  <Title level={4} style={{ margin: 0, color: '#1d216b' }}>
                     EXPRESIONARY
                   </Title>
                   <Text type="secondary" style={{ fontSize: 12 }}>
@@ -263,7 +263,7 @@ const Diccionary: React.FC = () => {
           {expressionFound && (
             <>
               <div>
-                <Title level={2} style={{ color: '#4c1d95', marginBottom: 6 }}>
+                <Title level={2} style={{ color: '#a557c6', marginBottom: 6 }}>
                   {expressionFound.expresion}
                 </Title>
                 <Title level={5} style={{ margin: 0 }}>
@@ -304,7 +304,7 @@ const Diccionary: React.FC = () => {
                 <>
                   <Row style={{ marginTop: 24 }}>
                   <Col span={24}>
-                      <Title level={5} style={{ marginBottom: 8, color: '#4c1d95' }}>
+                      <Title level={5} style={{ marginBottom: 8, color: '#a557c6' }}>
                     Tipo de expresión:
                     </Title>
                     <Text>{expressionFound?.categoria}</Text>
@@ -312,7 +312,7 @@ const Diccionary: React.FC = () => {
                   </Row>
                   <Row style={{ marginTop: 16 }}>
                   <Col span={24}>
-                      <Title level={5} style={{ marginBottom: 8, color: '#4c1d95' }}>
+                      <Title level={5} style={{ marginBottom: 8, color: '#a557c6' }}>
                     Uso:
                     </Title>
                     <Text>{expressionFound?.uso}</Text>
@@ -338,7 +338,7 @@ const Diccionary: React.FC = () => {
                 setExpressionFound(daily)
               }}
             >
-              <Title level={5} style={{ marginBottom: 8, color: '#4c1d95' }}>
+              <Title level={5} style={{ marginBottom: 8, color: '#a557c6' }}>
                 Idiom del día
               </Title>
               <div
