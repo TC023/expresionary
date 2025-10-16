@@ -141,7 +141,7 @@ const Diccionary: React.FC = () => {
           <Row align="middle" justify="space-between" style={{ marginBottom: 18 }}>
             <Col>
               <Space align="center">
-                <img src="Elogo.png" alt="Elogo" style={{ width: 40, height: 40, borderRadius: '50%' }} />
+                <img src="Elogo_Transparent.png" alt="Elogo" style={{ width: 40, height: 40, borderRadius: '50%' }} />
                 <div style={{ marginBottom: 12 }}>
                   <Title level={4} style={{ margin: 0, color: '#1d216b' }}>
                     EXPRESIONARY
