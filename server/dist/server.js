@@ -155,6 +155,9 @@ app.get('/api/users/upgrade', authMiddleware, async (req, res) => {
         res.status(500).json({ ok: false, error: err.message || String(err) });
     }
 });
+app.get('/api/test2', (req, res) => {
+    res.json({ "msg": "hello from mi iPhone" });
+});
 // app.get("/me", (req, res) => {
 //     if (req.session.user) {
 //         res.json(req.session.user);

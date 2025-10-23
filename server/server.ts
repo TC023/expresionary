@@ -188,6 +188,10 @@ app.get('/api/users/upgrade', authMiddleware, async (req: AuthRequest, res: Resp
     }
 });
 
+app.get('/api/test2', (req:Request, res:Response) => {
+    res.json({"msg": "hello from mi iPhone"})
+})
+
 // app.get("/me", (req, res) => {
 //     if (req.session.user) {
 //         res.json(req.session.user);
