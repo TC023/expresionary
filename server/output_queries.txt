@@ -1,0 +1,300 @@
+
+    INSERT INTO expresiones (id, categoria, expresion, uso, ejemplo) VALUES (119, 'Idiomatic phrases', '¡No manches!', 'Se refiere a una sorpresa o a algo inesperado.', '¡No manches! ¿En serio pasó eso?');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (119, 'english', 'You don´t say, no way.');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (119, 'german', 'Keineswegs!');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (119, 'french', 'Tu plaisant, c’est pas vrai!');
+            
+
+    INSERT INTO expresiones (id, categoria, expresion, uso, ejemplo) VALUES (120, 'Slang ', 'Neta', 'Se refiere a incredulidad o que no se cree algo.', '¿Es neta que dijo eso?');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (120, 'english', 'Really?, For real?');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (120, 'german', 'Wirklich?');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (120, 'french', 'En vrai?');
+            
+
+    INSERT INTO expresiones (id, categoria, expresion, uso, ejemplo) VALUES (121, 'Idiomatic phrases', '¡Está cañon!', 'Se refiera a que algo está muy difícil de hacer.', 'La verdad, sí está cañón para ir. ');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (121, 'english', 'It is incredible! / It is complicated! / It&#x27;s tough');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (121, 'german', 'Das ist der Hammer!');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (121, 'french', 'C’est ouf ');
+            
+
+    INSERT INTO expresiones (id, categoria, expresion, uso, ejemplo) VALUES (122, 'Slang', 'Hueva', 'Tener flojera ', 'Me da una hueva entrar a la clase de matemáticas.');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (122, 'english', 'Feeling lazy.');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (122, 'german', 'Der Faulheit!');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (122, 'french', 'Flemme');
+            
+
+    INSERT INTO expresiones (id, categoria, expresion, uso, ejemplo) VALUES (123, 'Slang ', 'O sea', 'Se usa para introducir una explicación.', 'O sea, me dijo que no quería ir con nosotros a la fiesta. ');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (123, 'english', 'I mean.');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (123, 'german', 'Das heißt.');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (123, 'french', 'Alors ');
+            
+
+    INSERT INTO expresiones (id, categoria, expresion, uso, ejemplo) VALUES (124, 'Idiomatic phrases', '¿Qué pedo?', 'Forma coloquial de preguntar ¿Cómo estás? o también expresa sorpresa.', '¿Qué pedo con su vida? / Que pedo, lo que le dijo estuvo mal. ');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (124, 'english', ' What the freak?');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (124, 'german', 'Was ist los?');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (124, 'french', 'Wesh, ça va ?');
+            
+
+    INSERT INTO expresiones (id, categoria, expresion, uso, ejemplo) VALUES (125, 'Slang', 'Órale', 'Expresión que denota asombro o motivación.', '¡Órale no sabía eso!, ¡Órale vamos, que se nos hace tarde! ');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (125, 'english', 'Geez!');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (125, 'german', 'Los!');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (125, 'french', 'Allez!');
+            
+
+    INSERT INTO expresiones (id, categoria, expresion, uso, ejemplo) VALUES (126, 'Idiomatic phrases', 'Qué chido', 'Que algo es increíble.', 'Que chido tu reloj.');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (126, 'english', 'Dope, thar&#x27;s sick, that&#x27;s rad.');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (126, 'german', 'Geil! ');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (126, 'french', 'C&#x27;est dinge!');
+            
+
+    INSERT INTO expresiones (id, categoria, expresion, uso, ejemplo) VALUES (127, 'Slang', '¡Aguas!', 'Expresión que indica que se va a revisar  o ver algo', '¡Aguas, se te va a caer eso!');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (127, 'english', 'Watch out!');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (127, 'german', 'Vorsichtig! ');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (127, 'french', 'Attention!, Fais gaffe!');
+            
+
+    INSERT INTO expresiones (id, categoria, expresion, uso, ejemplo) VALUES (128, 'Idiomatic phrases', 'Echar un ojo', 'Que te guste alguien o coquetearle a alguien.', 'Como que yo sí le voy echando el ojo a él. ');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (128, 'english', 'Check up!, keep an eye on');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (128, 'german', 'einen Blick werfen. ');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (128, 'french', 'Jeter un coup d&#x27;oeil');
+            
+
+    INSERT INTO expresiones (id, categoria, expresion, uso, ejemplo) VALUES (129, 'Idiomatic phrases', 'Dar lata', 'Estar molestando a alguien de una forma persistente.', 'Mi hijo da una lata, ya no lo soporto. ');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (129, 'english', 'To be a pain in the nose/in the ass.');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (129, 'german', 'Nerven / jemandel auf den Keks gehen.');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (129, 'french', 'Casser les pieds!');
+            
+
+    INSERT INTO expresiones (id, categoria, expresion, uso, ejemplo) VALUES (130, 'Idiomatic phrases', 'Me late', 'Forma coloquial de decir que algo te agrada o te gusta. ', 'Me late tu idea. ');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (130, 'english', 'I&#x27;m down, I dig it ');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (130, 'german', 'Ich steh&#x27; drauf.');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (130, 'french', 'Je kiffe!');
+            
+
+    INSERT INTO expresiones (id, categoria, expresion, uso, ejemplo) VALUES (131, 'Idiomatic phrases', 'Hacerse pato', 'Forma de referirse a una persona que no está haciendo nada cuando debe de hacer un trabajo. ', 'Yo siempre me hago pato en el trabajo. ');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (131, 'english', 'Horse around.');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (131, 'german', 'Sich dumm stellen.');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (131, 'french', 'Faire le fou/la folle');
+            
+
+    INSERT INTO expresiones (id, categoria, expresion, uso, ejemplo) VALUES (132, 'Slang', '¡Chin!', 'Se usa cuando algo salió mal.', '¡Chin!, ¡Olvidé las llaves de mi casa!');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (132, 'english', 'Damn! ');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (132, 'german', 'Mist! ');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (132, 'french', 'Zut !, MInce !, Flûte !');
+            
+
+    INSERT INTO expresiones (id, categoria, expresion, uso, ejemplo) VALUES (133, 'Slang', 'Ch', 'Hablar en susurro.', 'Deja de cuchichiar, es de mala educación. ');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (133, 'english', 'Yap, gab. ');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (133, 'german', 'Tuscheln / flüstern');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (133, 'french', 'Chuchoter');
+            
+
+    INSERT INTO expresiones (id, categoria, expresion, uso, ejemplo) VALUES (134, 'Slang', 'Gacho', 'Expresa que algo está feo o malo. ', 'Si estuvo gacho lo que le pasó a mi prima ayer. ');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (134, 'english', 'Mean, that sucks, lame, outrages.');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (134, 'german', 'Krass / mies / scheiße');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (134, 'french', 'C&#x27;est affreux, C&#x27;est nul, C&#x27;est pourri ');
+            
+
+    INSERT INTO expresiones (id, categoria, expresion, uso, ejemplo) VALUES (135, 'Slang', 'Quiúbole', 'Forma coloquial de preguntar ¿Cómo estás?', '¿Quiúbule, mi Franco?');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (135, 'english', 'Sup?');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (135, 'german', 'Was geht?');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (135, 'french', 'Quoi de neuf ?');
+            
+
+    INSERT INTO expresiones (id, categoria, expresion, uso, ejemplo) VALUES (136, 'Slang', 'Pichar', 'Invitar algo a alguien.', 'No te preocupes, yo picho hoy. ');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (136, 'english', 'It&#x27;s on me.');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (136, 'german', 'ein ausgeben.');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (136, 'french', 'Je paie ');
+            
+
+    INSERT INTO expresiones (id, categoria, expresion, uso, ejemplo) VALUES (137, 'Idiomatic phrases', 'Echar carrilla', 'Hacer bromas.', 'Deja de echar carrilla y ponte a trabajar. ');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (137, 'english', 'Diz someone, roast, read someone.');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (137, 'german', 'jemanden verarschen / jemanden hänseln.');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (137, 'french', 'Se moquer de, taquiner ');
+            
+
+    INSERT INTO expresiones (id, categoria, expresion, uso, ejemplo) VALUES (138, 'Slang', 'Agüitado', 'Expresar estar triste.', 'La verdad, si ando un poco agüitado. ');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (138, 'english', 'Blue, under the weather.');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (138, 'german', 'Traurig.');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (138, 'french', 'J&#x27;ai le cafard, Avoir le bourdon');
+            
+
+    INSERT INTO expresiones (id, categoria, expresion, uso, ejemplo) VALUES (139, 'Slang', 'Ándale', 'Se usa para referir asombro, aprobación o emoción por algo.', 'Ándale como te decía así le puedes hacer.');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (139, 'english', 'C&#x27;mon!, Move on! ');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (139, 'german', 'na, los!');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (139, 'french', 'Vas-y,  Ça roule');
+            
+
+    INSERT INTO expresiones (id, categoria, expresion, uso, ejemplo) VALUES (140, 'Idiomatic phrases', 'Qué padre', 'Se usa para referir asombro o emoción por algo.', ' ¡Que padre tus zapatos!');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (140, 'english', 'How cool!, That&#x27; great!, ');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (140, 'german', 'wie cool! / Echt cool! ');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (140, 'french', 'Superbe!,  Trop bien!');
+            
+
+    INSERT INTO expresiones (id, categoria, expresion, uso, ejemplo) VALUES (141, 'Idiomatic phrases', 'Ya chole- ya estuvo bueno ', 'Expresa hartazgo.', 'No pos, ya chole, esto no se hizo.');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (141, 'english', 'Enough!, That&#x27;s it, I&#x27;m done!');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (141, 'german', 'Ich hab die Schnauze voll!');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (141, 'french', 'J&#x27;en ai marre');
+            
+
+    INSERT INTO expresiones (id, categoria, expresion, uso, ejemplo) VALUES (142, 'Idiomatic phrases', 'De poca madre', 'Expresa que algo es increíble.', 'La fiesta de ayer estuvo de poca madre.');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (142, 'english', 'Awesome, outrages ');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (142, 'german', 'Das ist ja der Wahnsinn!');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (142, 'french', 'C&#x27;est le top');
+            
+
+    INSERT INTO expresiones (id, categoria, expresion, uso, ejemplo) VALUES (143, 'Idiomatic phrases', 'Del nabo', 'Se usa para expresar que algo está muy mal hecho.', 'Hoy en el trabajo me fue del nabo. ');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (143, 'english', 'Awful, I&#x27;ts crap.');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (143, 'german', 'Für&#x27;n Arsch.');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (143, 'french', 'C&#x27;est à chier');
+            
+
+    INSERT INTO expresiones (id, categoria, expresion, uso, ejemplo) VALUES (144, 'Slang', 'Cámara', 'Expresión coloquial para afirmar algo. También puede indicar indignación.', '¡Cámara! pensé que çonfiaba en tí. / ¡Cámara! yo los llevo. ');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (144, 'english', 'Got it, I gotcha.');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (144, 'german', 'Geht klar.');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (144, 'french', 'Ça roule');
+            
+
+    INSERT INTO expresiones (id, categoria, expresion, uso, ejemplo) VALUES (145, 'Idiomatic phrases', '¡Qué oso!', 'Expresión que denota vergüenza.', '¡Que oso! se le declaró enfrente de toda la escuela. ');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (145, 'english', 'What a shame!');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (145, 'german', 'Wie peinlich!');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (145, 'french', 'Quelle honte, c&#x27;est l&#x27;honte');
+            
+
+    INSERT INTO expresiones (id, categoria, expresion, uso, ejemplo) VALUES (146, 'Idiomatic phrases', '¿Qué tranza?', 'Expresión para preguntar ¿Cómo has estado?', '¿Que tranza? hace mucho que no nos vemos.');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (146, 'english', 'Sup?');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (146, 'german', 'Was geht?');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (146, 'french', 'Quoi de neuf ?');
+            
+
+    INSERT INTO expresiones (id, categoria, expresion, uso, ejemplo) VALUES (147, 'Idiomatic phrases', 'De chile, mole y pozole', 'Se usa para expresar que se hizo o hay muchas cosas pasando al mismo tiempo.', 'Eso parecía de chile, mole y pozole. No le entendí nada. ');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (147, 'english', 'A bit of everything.');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (147, 'german', 'Alles Mögliche');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (147, 'french', 'Un peu de tout ça, Un peut de tout');
+            
+
+    INSERT INTO expresiones (id, categoria, expresion, uso, ejemplo) VALUES (148, 'Slang', 'Aventón', 'Se usa para ayudar a acercar a alguien hacia una ubicación específica.', '¿Me das un aventón a mi casa?');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (148, 'english', 'Ride.');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (148, 'german', 'eine mitfahrgelegenheit bieten');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (148, 'french', 'Donner un lift,  Donner un lift');
+            
+
+    INSERT INTO expresiones (id, categoria, expresion, uso, ejemplo) VALUES (149, 'Idiomatic phrases', 'Mamón /mamona', 'Una persona con un carácter especial.', 'El profe es super mamón. ');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (149, 'english', 'Picky, bitchy.');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (149, 'german', 'Arschloch.');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (149, 'french', 'Snob, Connard');
+            
+
+    INSERT INTO expresiones (id, categoria, expresion, uso, ejemplo) VALUES (150, 'Slang', 'Leve', 'Se usa para expresar poca cantidad de algo.', 'El dolor es leve. ');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (150, 'english', 'Slightly.');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (150, 'german', 'Kein Ding');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (150, 'french', 'Léger');
+            
+
+    INSERT INTO expresiones (id, categoria, expresion, uso, ejemplo) VALUES (151, 'Slang', 'Chafa', 'Se usa para expresar algo de mala calidad.', 'Qué chafa, se rompió a los dos días. ');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (151, 'english', 'Cheap, a crap, fake. ');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (151, 'german', 'Schrott.');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (151, 'french', 'Merdique');
+            
+
+    INSERT INTO expresiones (id, categoria, expresion, uso, ejemplo) VALUES (152, 'Idiomatic phrases', 'Mala onda / buena onda', 'Se refiere a que alguien es buena o mala persona.', 'Qué mala onda, yo no le haría eso. Qué buena onda, sí me ayudó con el proyecto. ');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (152, 'english', 'Good vibes, Bad vibes.');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (152, 'german', 'Arschloch / cool.');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (152, 'french', 'Pas cool/Chiant, c&#x27;est la kiffance ');
+            
+
+    INSERT INTO expresiones (id, categoria, expresion, uso, ejemplo) VALUES (153, 'Idiomatic phrases', 'Echar relajo', 'Se usa para referirse a hacer bromas.', 'Todos estábamos echando relajo, cuanod llegó la maestra. ');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (153, 'english', 'To have fun, to chill out.');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (153, 'german', 'herumalbern.');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (153, 'french', 'Farniente');
+            
+
+    INSERT INTO expresiones (id, categoria, expresion, uso, ejemplo) VALUES (154, 'Idiomatic phrases', 'Con el ojo cuadrado', 'Denota asombro o no haber entendido algo.', 'Me has dejado con el ojo cuadrado, no pensé que harías eso. ');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (154, 'english', 'Stunned. Shocked. ');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (154, 'german', 'Krass! / Wahnsinn!');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (154, 'french', 'Oh la vache!, C&#x27;est ouf!');
+            
+
+    INSERT INTO expresiones (id, categoria, expresion, uso, ejemplo) VALUES (155, 'Idiomatic phrases', 'Luego-luego', 'Se usa para referirse a que algo se va a realizar al instante.', 'Luego-luego de que me fui, se rompió el cristal.');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (155, 'english', 'Right away.');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (155, 'german', 'Gleich / Sofort!');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (155, 'french', 'En deux deux');
+            
+
+    INSERT INTO expresiones (id, categoria, expresion, uso, ejemplo) VALUES (156, 'Slang', 'Chulo/a', 'Algo que es bonito o lindo.', 'Mi hijo esta bien chulo.');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (156, 'english', 'Pimp. ');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (156, 'german', 'Geil! / Toll!');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (156, 'french', 'Chouette, mignon');
+            
+
+    INSERT INTO expresiones (id, categoria, expresion, uso, ejemplo) VALUES (157, 'Slang', 'Achicopalado', 'Estar muy triste.', 'Achicopalado me fui a mi casa. ');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (157, 'english', 'Feeling blue, Under the weather. ');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (157, 'german', 'Traurig.');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (157, 'french', 'J&#x27;ai le cafard, Avoir le bourdon. ');
+            
+
+    INSERT INTO expresiones (id, categoria, expresion, uso, ejemplo) VALUES (158, 'Idiomatic phrases', 'Se te guarda', 'Frase que indica indignación, traición y decepción.', 'Se te guarda, no te volveré a contar nada. ');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (158, 'english', 'I&#x27;ll keep that in mind.');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (158, 'german', 'Das merke ich mir!');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (158, 'french', 'Attends de voir');
+            
+
+    INSERT INTO expresiones (id, categoria, expresion, uso, ejemplo) VALUES (159, 'Slang', 'Ujule', 'Expresión que se usa cuando algo no salió como se esperaba.', 'Újule de aqyuí a que terminemos, va tomar rato. ');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (159, 'english', 'Damn! Oh man!');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (159, 'german', 'Oh je!');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (159, 'french', 'Mince!');
+            
+
+    INSERT INTO expresiones (id, categoria, expresion, uso, ejemplo) VALUES (160, 'Slang', 'Pelado', 'Se refiere a alguien grosero.', 'Me gusta mucho él, pero es muy pelado.');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (160, 'english', 'Rude. ');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (160, 'german', 'Frechdachs / Göre');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (160, 'french', 'Relou, Chiant / Chiante');
+            
+
+    INSERT INTO expresiones (id, categoria, expresion, uso, ejemplo) VALUES (161, 'Idiomatic phrases', 'La cagaste', ' Se usa cuando alguien hizo algo malo, evidenció a alguien o hizo lo que no debía de hacer. ', 'Sí la cagaste con ese comentario, no inventes. ');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (161, 'english', 'You screwed up');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (161, 'german', 'Du hast&#x27;s verkackt!');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (161, 'french', 'J&#x27;ai merdé, j&#x27;ai fait une connerie');
+            
+
+    INSERT INTO expresiones (id, categoria, expresion, uso, ejemplo) VALUES (162, 'Idiomatic phrases', 'Es chingón', 'Se usa para referirse a alguien muy bueno en lo que hace.', 'Mi amigo es un chingón en lo que hace. ');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (162, 'english', 'Lit ');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (162, 'german', 'Er /Sie ist der Hammer!');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (162, 'french', 'Nickel, Magnifique');
+            
+
+    INSERT INTO expresiones (id, categoria, expresion, uso, ejemplo) VALUES (163, 'Idiomatic phrases', 'Pedir ray. Pedir raid.', 'Se usa para ayudar a acercar a alguien hacia una ubicación específica.', 'Ayer le pedí raid a mi amigo. ');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (163, 'english', 'Give a ride!');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (163, 'german', 'eine mitfahrgelegenheit bieten.');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (163, 'french', 'Donner un lift,  Donner un lift');
+            
+
+    INSERT INTO expresiones (id, categoria, expresion, uso, ejemplo) VALUES (164, 'Idiomatic phrases', 'Darse de madrazos', 'Pelearse con alguien a golpes. ', 'Carlos y José se dieron de madrazos ayer. ');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (164, 'english', 'To get into a fight.');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (164, 'german', 'auf die Fresse kriegen.');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (164, 'french', 'Se cogner');
+            
+
+    INSERT INTO expresiones (id, categoria, expresion, uso, ejemplo) VALUES (165, 'Slang', 'Chamuscado', ' Se refiere a algo o alguien que está quemado o bien, refiere a un desgaste físico.', 'Mi cerebro terminó chamuscado ayer. / Se te chamuscó la carne. ');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (165, 'english', 'Scorched. ');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (165, 'german', 'Angebrannt / kaputt.');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (165, 'french', 'Brûlé');
+            
+
+    INSERT INTO expresiones (id, categoria, expresion, uso, ejemplo) VALUES (166, 'Idiomatic phrases', 'Echame/Hacerme paro', ' Pedir ayuda o un favor a alguien.', 'Hazme paro, ¿no? Ahorita tengo las manos ocupadas.  ');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (166, 'english', 'Give me a hand.');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (166, 'german', 'Schieb mir mal!');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (166, 'french', 'Il me faut un coup de main');
+            
+
+    INSERT INTO expresiones (id, categoria, expresion, uso, ejemplo) VALUES (167, 'Idiomatic phrases', 'De la fregada', 'Expresión que se utiliza para decir que algo no está bien.', 'En la exposicion nos fue de la fregada.');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (167, 'english', 'What the hell, what a mess.');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (167, 'german', 'zum Kotzen. ');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (167, 'french', 'C&#x27;est la galère');
+            
+
+    INSERT INTO expresiones (id, categoria, expresion, uso, ejemplo) VALUES (168, 'Slang', '¡Sobres! ', 'Expresión coloquial para afirmar algo. También puede indicar indignación.', 'Sobres, nos vemos mañana en la fiesta. ');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (168, 'english', 'You got it! Yeah man! Hell yeah!');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (168, 'german', 'Alles klar! / Na toll! - prima');
+    INSERT INTO equivalencias (expresion_id, idioma, texto_equivalente) VALUES (168, 'french', 'Ouaip, Mouais');
+            
