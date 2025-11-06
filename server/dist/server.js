@@ -10,7 +10,7 @@ const db_1 = require("./db");
 const app = (0, express_1.default)();
 // Enable CORS
 app.use((0, cors_1.default)({
-// origin: ['https://www.expresionary.com.mx', 'https://expresionary.com.mx', 'http://localhost:5173'], // Include all relevant origins
+    origin: ['https://www.expresionary.com.mx', 'https://expresionary.com.mx', 'http://localhost:5173'], // Include all relevant origins
 }));
 // Middleware to parse JSON bodies
 app.use(express_1.default.json());
