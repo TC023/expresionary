@@ -72,14 +72,39 @@ export default function ExpresionsListPage() {
     }, []);
 
     useEffect(() => {
-        // If expressions originated from location.state, skip fetching on language changes
+        // If expressions originated from location.state, allow fetching when user explicitly changes language
         if (fromStateRef.current) return;
 
         const fetchData = async () => {
             setLoading(true);
             const res = await fetchExpressionsFull(language);
-            if (res) {
-                setData(res)
+            if (res && Array.isArray(res)) {
+                // Simplify/merge raw rows into a compact shape similar to Diccionary view
+                const acc: Record<string, any> = {};
+                (res as any[]).forEach((item) => {
+                    const id = String(item.id ?? item.expresion ?? Math.random());
+                    if (!acc[id]) {
+                        acc[id] = {
+                            id,
+                            expresion: item.expresion,
+                            ejemplo: item.ejemplo,
+                            equivalente: item.equivalente,
+                            equivalencias: {}
+                        };
+                    }
+                    if (item.idioma_equivalente) {
+                        acc[id].equivalencias[item.idioma_equivalente] = item.texto_equivalente;
+                    }
+                });
+
+                const simplified = Object.values(acc).map((x: any) => ({
+                    id: String(x.id),
+                    expresion: x.expresion || '',
+                    equivalente: x.equivalente || '',
+                    ejemplo: x.ejemplo || ''
+                }));
+
+                setData(simplified.sort((a: Expression, b: Expression) => a.expresion.localeCompare(b.expresion)));
             }
             setLoading(false)
         }
@@ -188,7 +213,7 @@ export default function ExpresionsListPage() {
                         <Title level={1} style={{ margin: 0, color: '#1d216b' }}>{currentLang.name}</Title>
                     </div>
                     <div>
-                        <Select value={language} onChange={(v) => setLanguage(v)} style={{ width: 180 }}>
+                        <Select value={language} onChange={(v) => { fromStateRef.current = false; setLanguage(v) }} style={{ width: 180 }}>
                             {LANGS.map((l) => (
                                 <Option key={l.dbLang} value={l.dbLang}><span className={`fi fi-${l.code}`} /> {l.name}</Option>
                             ))}

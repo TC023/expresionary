@@ -11,7 +11,7 @@ const app = express()
 
 // Enable CORS
 app.use(cors({
-    origin: ['https://www.expresionary.com.mx', 'https://expresionary.com.mx', 'http://localhost:5173'], // Include all relevant origins
+    // origin: ['https://www.expresionary.com.mx', 'https://expresionary.com.mx', 'http://localhost:5173'], // Include all relevant origins
 }))
 
 // Middleware to parse JSON bodies
