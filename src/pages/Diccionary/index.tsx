@@ -352,7 +352,7 @@ const Diccionary: React.FC = () => {
                     { code: 'us', name: 'Inglés', dbLang: 'english' },
                     { code: 'fr', name: 'Francés', dbLang: 'french' },
                     { code: 'de', name: 'Alemán', dbLang: 'german' },
-                    { code: 'mx', name: 'Spanish', dbLang: 'spanish' }
+                    { code: 'mx', name: 'Español', dbLang: 'spanish' }
                   ].map((lang) => (
                     <Tag
                       key={lang.code}
