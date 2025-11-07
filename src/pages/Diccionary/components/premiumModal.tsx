@@ -56,7 +56,7 @@ Al obtener premium obtendrás lenguaje técnico especializado en diferentes mate
                     />
                 </div>
                 <Button type="primary" block onClick={() => handleFinish()}>
-                    Mejorar a premium ($80 MXN)
+                    Mejorar a premium ($100 MXN)
                 </Button>
             </Modal>
         </>
