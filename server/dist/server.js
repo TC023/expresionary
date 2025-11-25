@@ -15,6 +15,12 @@ app.use((0, cors_1.default)({
 // Middleware to parse JSON bodies
 app.use(express_1.default.json());
 const SECRET = 'HALLO, There once was a ship that put to sea';
+/**
+ * Middleware to authenticate requests based on a token.
+ * Checks for the presence and validity of the authorization header.
+ * If valid, adds user information to the request object.
+ * Responds with a 401 status if the token is missing or invalid.
+ */
 function authMiddleware(req, res, next) {
     const header = req.headers.authorization;
     if (!header) {
@@ -31,10 +37,18 @@ function authMiddleware(req, res, next) {
         res.status(401).json({ message: "Invalid token" });
     }
 }
+/**
+ * Endpoint to test API connectivity.
+ * Responds with a simple message to confirm backend availability.
+ */
 app.get('/api/test', (req, res) => {
     res.json({ msg: 'hi from backend' });
 });
 // simple endpoint that runs a small query against MySQL
+/**
+ * Endpoint to test database connectivity.
+ * Runs a simple query against MySQL to verify connection and query execution.
+ */
 app.get('/api/dbtest', async (req, res) => {
     try {
         // ensure pool can connect
@@ -48,6 +62,11 @@ app.get('/api/dbtest', async (req, res) => {
         res.status(500).json({ ok: false, error: err.message || String(err) });
     }
 });
+/**
+ * Endpoint to perform a search query.
+ * Searches expressions and their equivalents based on the provided parameter.
+ * Returns up to 5 results matching the search criteria.
+ */
 app.get('/api/search', async (req, res) => {
     const search = req.query.search;
     if (!search) {
@@ -62,6 +81,10 @@ app.get('/api/search', async (req, res) => {
         res.status(500).json({ ok: false, error: err.message || String(err) });
     }
 });
+/**
+ * Endpoint to retrieve a specific expression.
+ * Retrieves detailed information and equivalents for the given expression parameter.
+ */
 app.get('/api/expression', async (req, res) => {
     const expresion = req.query.expresion;
     if (!expresion) {
@@ -89,6 +112,10 @@ app.get('/api/expression', async (req, res) => {
         res.status(500).json({ ok: false, error: err.message || String(err) });
     }
 });
+/**
+ * Endpoint to retrieve the daily expression.
+ * Fetches the idiom of the day and its equivalents.
+ */
 app.get('/api/daily', async (req, res) => {
     try {
         const rows = await (0, db_1.query)(`
@@ -115,6 +142,10 @@ WHERE di.selected_date = CURDATE();
         res.status(500).json({ ok: false, error: err.message || String(err) });
     }
 });
+/**
+ * Endpoint to fetch a random expression.
+ * Selects a random expression and retrieves its equivalents.
+ */
 app.get('/api/random', async (req, res) => {
     try {
         const rows = await (0, db_1.query)(`
@@ -143,6 +174,10 @@ LEFT JOIN equivalencias AS eq
         res.status(500).json({ ok: false, error: err.message || String(err) });
     }
 });
+/**
+ * Endpoint to create a new user.
+ * Accepts email and password, inserts new user and returns a token for authentication.
+ */
 app.post('/api/users/new', async (req, res) => {
     const { email, password } = req.body;
     if (!email || !password) {
@@ -159,6 +194,10 @@ app.post('/api/users/new', async (req, res) => {
         res.status(500).json({ ok: false, error: err.message || String(err) });
     }
 });
+/**
+ * Endpoint to login a user.
+ * Verifies email and password, and returns an authentication token if successful.
+ */
 app.post('/api/users/login', async (req, res) => {
     const { email, password } = req.body;
     if (!email || !password) {
@@ -183,6 +222,10 @@ app.get("/api/profile", authMiddleware, async (req, res) => {
     // console.log(rows)
     res.status(200).json(rows[0]);
 });
+/**
+ * Endpoint to upgrade user role.
+ * Updates the user role to premium for the authenticated user.
+ */
 app.get('/api/users/upgrade', authMiddleware, async (req, res) => {
     try {
         const userId = req.user.id;
@@ -197,6 +240,10 @@ app.get('/api/users/upgrade', authMiddleware, async (req, res) => {
         res.status(500).json({ ok: false, error: err.message || String(err) });
     }
 });
+/**
+ * Endpoint to list expressions by language.
+ * Retrieves expressions and their equivalents for the given language parameter.
+ */
 app.get('/api/expressions', async (req, res) => {
     const language = req.query.language;
     if (!language) {
@@ -228,6 +275,10 @@ app.get('/api/expressions', async (req, res) => {
     }
 });
 const PORT = process.env.PORT ? parseInt(process.env.PORT, 10) : 3000;
+/**
+ * Starts the server and listens on the specified port.
+ * Logs a message confirming server startup.
+ */
 app.listen(PORT, () => {
     console.log(`Servidor corriendo en el puerto ${PORT}`);
 });
