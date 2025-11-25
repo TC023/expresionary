@@ -19,6 +19,10 @@ export interface Expression {
 
 // Datos de ejemplo para desarrollo — reemplazar por fetch real en producción
 
+/**
+ * Main page component for displaying a list of expressions.
+ * It manages language settings and fetches expression data.
+ */
 export default function ExpresionsListPage() {
     const LANGS = [
         { code: 'us', name: 'Inglés', dbLang: 'english' },
@@ -55,6 +59,13 @@ export default function ExpresionsListPage() {
 
 
     useEffect(() => {
+/**
+ * Async function triggered on language change to fetch new expressions data.
+ */
+/**
+ * Async function to fetch expressions data based on the current language settings.
+ * Sets data based on location state or performs an API call.
+ */
         const fetchData = async () => {
             if (state?.expressions) {
                 setData(state.expressions);
@@ -104,6 +115,10 @@ export default function ExpresionsListPage() {
     }, [selected])
 
 
+/**
+ * Memoized function that filters expressions data based on search text.
+ * Returns filtered rows and total count.
+ */
     const filtered = useMemo(() => {
         const f = data.filter((d) => {
             if (searchText) {
