@@ -11,7 +11,7 @@ const app = express()
 
 // Enable CORS
 app.use(cors({
-    origin: ['https://www.expresionary.com.mx', 'https://expresionary.com.mx', 'http://localhost:5173'], // Include all relevant origins
+    // origin: ['https://www.expresionary.com.mx', 'https://expresionary.com.mx', 'http://localhost:5173'], // Include all relevant origins
 }))
 
 // Middleware to parse JSON bodies
@@ -65,7 +65,10 @@ app.get('/api/search', async (req: Request, res: Response) => {
     }
 
     try {
-        const rows = await query('SELECT expresion FROM expresiones WHERE expresion LIKE ? LIMIT 5', [`%${search}%`]);
+        const rows = await query(
+            'SELECT expresion, equivalente FROM expresiones WHERE expresion LIKE ? OR equivalente LIKE ? LIMIT 5',
+            [`%${search}%`, `%${search}%`]
+        );
         res.json({ ok: true, rows });
     } catch (err: any) {
         console.error('Search query failed', err);
@@ -81,7 +84,20 @@ app.get('/api/expression', async (req: Request, res: Response) => {
     }
 
     try {
-        const rows = await query('SELECT * FROM expresiones WHERE expresion = ?', [expresion]);
+        const rows = await query(`
+            SELECT 
+            e.id,
+            e.expresion,
+            e.uso,
+            e.ejemplo,
+            e.idioma,
+            e.categoria,
+            eq.idioma AS idioma_equivalente,
+            eq.texto_equivalente
+        FROM expresiones e
+        JOIN equivalencias eq ON eq.expresion_id = e.id
+        WHERE e.expresion = ?;
+            `, [expresion]);
         res.json({ ok: true, rows });
     } catch (err: any) {
         console.error('Expression query failed', err);
@@ -92,9 +108,20 @@ app.get('/api/expression', async (req: Request, res: Response) => {
 app.get('/api/daily', async (req: Request, res: Response) => {
     try {
         const rows = await query(`
-SELECT di.*, i.*
+SELECT 
+    e.id,
+    e.expresion,
+    e.uso,
+    e.ejemplo,
+    e.idioma,
+    e.categoria,
+    eq.idioma AS idioma_equivalente,
+    eq.texto_equivalente
 FROM daily_idiom AS di
-JOIN expresiones AS i ON di.expresion_id = i.id
+JOIN expresiones AS e 
+    ON di.expresion_id = e.id
+LEFT JOIN equivalencias AS eq 
+    ON eq.expresion_id = e.id
 WHERE di.selected_date = CURDATE();
 `);
         res.json({ ok: true, rows });
@@ -106,7 +133,25 @@ WHERE di.selected_date = CURDATE();
 
 app.get('/api/random', async (req: Request, res: Response) => {
     try {
-        const rows = await query('SELECT * FROM expresiones ORDER BY RAND() LIMIT 1');
+        const rows = await query(`
+SELECT 
+    e.id,
+    e.expresion,
+    e.uso,
+    e.ejemplo,
+    e.idioma,
+    e.categoria,
+    eq.idioma AS idioma_equivalente,
+    eq.texto_equivalente
+FROM (
+    SELECT * 
+    FROM expresiones 
+    ORDER BY RAND() 
+    LIMIT 1
+) AS e
+LEFT JOIN equivalencias AS eq 
+    ON eq.expresion_id = e.id;
+`);
         res.json({ ok: true, rows });
     } catch (err: any) {
         console.error('Random query failed', err);
@@ -188,13 +233,37 @@ app.get('/api/users/upgrade', authMiddleware, async (req: AuthRequest, res: Resp
     }
 });
 
-// app.get("/me", (req, res) => {
-//     if (req.session.user) {
-//         res.json(req.session.user);
-//     } else {
-//         res.status(401).json({ error: "Not authenticated" });
-//     }
-// });
+app.get('/api/expressions', async (req: Request, res: Response) => {
+    const language = req.query.language as string;
+
+    if (!language) {
+        return res.status(400).json({ ok: false, error: 'Missing language query parameter' });
+    }
+
+    try {
+        const rows = await query(`
+    SELECT 
+        e.id,
+        e.expresion,
+        e.uso,
+        e.ejemplo,
+        e.idioma,
+        e.categoria,
+        e.equivalente,
+        eq.idioma AS idioma_equivalente,
+        eq.texto_equivalente
+    FROM expresiones AS e
+    LEFT JOIN equivalencias AS eq 
+        ON eq.expresion_id = e.id
+    WHERE e.idioma = ?
+    ORDER BY e.expresion ASC;
+    `, [language]);
+        res.json({ ok: true, rows });
+    } catch (err: any) {
+        console.error('Expressions query failed', err);
+        res.status(500).json({ ok: false, error: err.message || String(err) });
+    }
+});
 
 const PORT = process.env.PORT ? parseInt(process.env.PORT, 10) : 3000;
 app.listen(PORT, () => {

@@ -1,0 +1,16 @@
+.contentBox {
+    transition: all 0.8s ease;
+    background-color: white;
+}
+
+.contentBox.full {
+    width: 100vw;
+    height: 100vh;
+}
+
+.contentBox.small {
+    width: 90%;
+    height: 300px;
+    border-radius: 12px;
+    overflow: hidden;
+}
