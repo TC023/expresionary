@@ -11,7 +11,7 @@ const app = express()
 
 // Enable CORS
 app.use(cors({
-    origin: ['https://www.expresionary.com.mx', 'https://expresionary.com.mx', 'http://localhost:5173'], // Include all relevant origins
+    // origin: ['https://www.expresionary.com.mx', 'https://expresionary.com.mx', 'http://localhost:5173'], // Include all relevant origins
 }))
 
 // Middleware to parse JSON bodies
@@ -23,6 +23,13 @@ interface AuthRequest extends Request {
     user?: string | jwt.JwtPayload;
 }
 
+/**
+ * Middleware to authenticate requests using JWT.
+ *
+ * @param req - The request object with potential user information.
+ * @param res - The response object used to send back HTTP responses.
+ * @param next - Callback function to move to the next middleware.
+ */
 function authMiddleware(req: AuthRequest, res: Response, next: () => void): void {
     const header = req.headers.authorization;
     if (!header) {
@@ -39,11 +46,23 @@ function authMiddleware(req: AuthRequest, res: Response, next: () => void): void
     }
 }
 
+/**
+ * Endpoint to test the API server connectivity.
+ *
+ * @param req - The request object.
+ * @param res - The response object used to send back HTTP responses.
+ */
 app.get('/api/test', (req: Request, res: Response) => {
     res.json({msg: 'hi from backend'})
 })
 
 // simple endpoint that runs a small query against MySQL
+/**
+ * Endpoint for testing database connectivity and a simple query.
+ *
+ * @param req - The request object.
+ * @param res - The response object used to send back HTTP responses.
+ */
 app.get('/api/dbtest', async (req: Request, res: Response) => {
     try {
         // ensure pool can connect
@@ -57,6 +76,12 @@ app.get('/api/dbtest', async (req: Request, res: Response) => {
     }
 })
 
+/**
+ * Endpoint to search expressions in the database using a query parameter.
+ *
+ * @param req - The request object containing search query.
+ * @param res - The response object used to send back HTTP responses.
+ */
 app.get('/api/search', async (req: Request, res: Response) => {
     const search = req.query.search as string;
 
@@ -65,7 +90,10 @@ app.get('/api/search', async (req: Request, res: Response) => {
     }
 
     try {
-        const rows = await query('SELECT expresion FROM expresiones WHERE expresion LIKE ? LIMIT 5', [`%${search}%`]);
+        const rows = await query(
+            'SELECT expresion, equivalente FROM expresiones WHERE expresion LIKE ? OR equivalente LIKE ? LIMIT 5',
+            [`%${search}%`, `%${search}%`]
+        );
         res.json({ ok: true, rows });
     } catch (err: any) {
         console.error('Search query failed', err);
@@ -73,6 +101,12 @@ app.get('/api/search', async (req: Request, res: Response) => {
     }
 });
 
+/**
+ * Endpoint to get details of an expression from the database.
+ *
+ * @param req - The request object containing expression query.
+ * @param res - The response object used to send back HTTP responses.
+ */
 app.get('/api/expression', async (req: Request, res: Response) => {
     const expresion = req.query.expresion as string;
 
@@ -81,7 +115,20 @@ app.get('/api/expression', async (req: Request, res: Response) => {
     }
 
     try {
-        const rows = await query('SELECT * FROM expresiones WHERE expresion = ?', [expresion]);
+        const rows = await query(`
+            SELECT 
+            e.id,
+            e.expresion,
+            e.uso,
+            e.ejemplo,
+            e.idioma,
+            e.categoria,
+            eq.idioma AS idioma_equivalente,
+            eq.texto_equivalente
+        FROM expresiones e
+        JOIN equivalencias eq ON eq.expresion_id = e.id
+        WHERE e.expresion = ?;
+            `, [expresion]);
         res.json({ ok: true, rows });
     } catch (err: any) {
         console.error('Expression query failed', err);
@@ -89,12 +136,29 @@ app.get('/api/expression', async (req: Request, res: Response) => {
     }
 });
 
+/**
+ * Endpoint to get the daily expression from the database.
+ *
+ * @param req - The request object.
+ * @param res - The response object used to send back HTTP responses.
+ */
 app.get('/api/daily', async (req: Request, res: Response) => {
     try {
         const rows = await query(`
-SELECT di.*, i.*
+SELECT 
+    e.id,
+    e.expresion,
+    e.uso,
+    e.ejemplo,
+    e.idioma,
+    e.categoria,
+    eq.idioma AS idioma_equivalente,
+    eq.texto_equivalente
 FROM daily_idiom AS di
-JOIN expresiones AS i ON di.expresion_id = i.id
+JOIN expresiones AS e 
+    ON di.expresion_id = e.id
+LEFT JOIN equivalencias AS eq 
+    ON eq.expresion_id = e.id
 WHERE di.selected_date = CURDATE();
 `);
         res.json({ ok: true, rows });
@@ -104,9 +168,33 @@ WHERE di.selected_date = CURDATE();
     }
 });
 
+/**
+ * Endpoint to get a random expression from the database.
+ *
+ * @param req - The request object.
+ * @param res - The response object used to send back HTTP responses.
+ */
 app.get('/api/random', async (req: Request, res: Response) => {
     try {
-        const rows = await query('SELECT * FROM expresiones ORDER BY RAND() LIMIT 1');
+        const rows = await query(`
+SELECT 
+    e.id,
+    e.expresion,
+    e.uso,
+    e.ejemplo,
+    e.idioma,
+    e.categoria,
+    eq.idioma AS idioma_equivalente,
+    eq.texto_equivalente
+FROM (
+    SELECT * 
+    FROM expresiones 
+    ORDER BY RAND() 
+    LIMIT 1
+) AS e
+LEFT JOIN equivalencias AS eq 
+    ON eq.expresion_id = e.id;
+`);
         res.json({ ok: true, rows });
     } catch (err: any) {
         console.error('Random query failed', err);
@@ -114,6 +202,12 @@ app.get('/api/random', async (req: Request, res: Response) => {
     }
 });
 
+/**
+ * Endpoint to create a new user in the database.
+ *
+ * @param req - The request object containing user details.
+ * @param res - The response object used to send back HTTP responses.
+ */
 app.post('/api/users/new', async (req: Request, res: Response) => {
     const { email, password } = req.body; 
 
@@ -137,6 +231,12 @@ app.post('/api/users/new', async (req: Request, res: Response) => {
     }
 });
 
+/**
+ * Endpoint for user login and token generation.
+ *
+ * @param req - The request object containing login credentials.
+ * @param res - The response object used to send back HTTP responses.
+ */
 app.post('/api/users/login', async (req: Request, res: Response) => {
     const { email, password } = req.body;
 
@@ -162,12 +262,24 @@ app.post('/api/users/login', async (req: Request, res: Response) => {
     }
 });
 
+/**
+ * Endpoint to get the authenticated user's profile details.
+ *
+ * @param req - The request object with user information.
+ * @param res - The response object used to send back HTTP responses.
+ */
 app.get("/api/profile", authMiddleware, async (req: AuthRequest, res: Response) => {
     const rows = await query("SELECT id, email, role FROM usuario WHERE id = ?", [(req.user as any).id]) as RowDataPacket[];
     // console.log(rows)
     res.status(200).json(rows[0]);
 });
 
+/**
+ * Endpoint to upgrade a user's role to premium.
+ *
+ * @param req - The request object with user information.
+ * @param res - The response object used to send back HTTP responses.
+ */
 app.get('/api/users/upgrade', authMiddleware, async (req: AuthRequest, res: Response) => {
     try {
         const userId = (req.user as any).id;
@@ -188,15 +300,48 @@ app.get('/api/users/upgrade', authMiddleware, async (req: AuthRequest, res: Resp
     }
 });
 
-// app.get("/me", (req, res) => {
-//     if (req.session.user) {
-//         res.json(req.session.user);
-//     } else {
-//         res.status(401).json({ error: "Not authenticated" });
-//     }
-// });
+/**
+ * Endpoint to get expressions based on language query parameter.
+ *
+ * @param req - The request object containing language query.
+ * @param res - The response object used to send back HTTP responses.
+ */
+app.get('/api/expressions', async (req: Request, res: Response) => {
+    const language = req.query.language as string;
+
+    if (!language) {
+        return res.status(400).json({ ok: false, error: 'Missing language query parameter' });
+    }
+
+    try {
+        const rows = await query(`
+    SELECT 
+        e.id,
+        e.expresion,
+        e.uso,
+        e.ejemplo,
+        e.idioma,
+        e.categoria,
+        e.equivalente,
+        eq.idioma AS idioma_equivalente,
+        eq.texto_equivalente
+    FROM expresiones AS e
+    LEFT JOIN equivalencias AS eq 
+        ON eq.expresion_id = e.id
+    WHERE e.idioma = ?
+    ORDER BY e.expresion ASC;
+    `, [language]);
+        res.json({ ok: true, rows });
+    } catch (err: any) {
+        console.error('Expressions query failed', err);
+        res.status(500).json({ ok: false, error: err.message || String(err) });
+    }
+});
 
 const PORT = process.env.PORT ? parseInt(process.env.PORT, 10) : 3000;
+/**
+ * Starts the Express server on the specified port.
+ */
 app.listen(PORT, () => {
     console.log(`Servidor corriendo en el puerto ${PORT}`);
 });

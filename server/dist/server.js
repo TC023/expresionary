@@ -10,11 +10,17 @@ const db_1 = require("./db");
 const app = (0, express_1.default)();
 // Enable CORS
 app.use((0, cors_1.default)({
-    origin: ['https://www.expresionary.com.mx', 'https://expresionary.com.mx', 'http://localhost:5173'], // Include all relevant origins
+// origin: ['https://www.expresionary.com.mx', 'https://expresionary.com.mx', 'http://localhost:5173'], // Include all relevant origins
 }));
 // Middleware to parse JSON bodies
 app.use(express_1.default.json());
 const SECRET = 'HALLO, There once was a ship that put to sea';
+/**
+ * Middleware to authenticate requests based on a token.
+ * Checks for the presence and validity of the authorization header.
+ * If valid, adds user information to the request object.
+ * Responds with a 401 status if the token is missing or invalid.
+ */
 function authMiddleware(req, res, next) {
     const header = req.headers.authorization;
     if (!header) {
@@ -31,10 +37,18 @@ function authMiddleware(req, res, next) {
         res.status(401).json({ message: "Invalid token" });
     }
 }
+/**
+ * Endpoint to test API connectivity.
+ * Responds with a simple message to confirm backend availability.
+ */
 app.get('/api/test', (req, res) => {
     res.json({ msg: 'hi from backend' });
 });
 // simple endpoint that runs a small query against MySQL
+/**
+ * Endpoint to test database connectivity.
+ * Runs a simple query against MySQL to verify connection and query execution.
+ */
 app.get('/api/dbtest', async (req, res) => {
     try {
         // ensure pool can connect
@@ -48,13 +62,18 @@ app.get('/api/dbtest', async (req, res) => {
         res.status(500).json({ ok: false, error: err.message || String(err) });
     }
 });
+/**
+ * Endpoint to perform a search query.
+ * Searches expressions and their equivalents based on the provided parameter.
+ * Returns up to 5 results matching the search criteria.
+ */
 app.get('/api/search', async (req, res) => {
     const search = req.query.search;
     if (!search) {
         return res.status(400).json({ ok: false, error: 'Missing search query parameter' });
     }
     try {
-        const rows = await (0, db_1.query)('SELECT expresion FROM expresiones WHERE expresion LIKE ? LIMIT 5', [`%${search}%`]);
+        const rows = await (0, db_1.query)('SELECT expresion, equivalente FROM expresiones WHERE expresion LIKE ? OR equivalente LIKE ? LIMIT 5', [`%${search}%`, `%${search}%`]);
         res.json({ ok: true, rows });
     }
     catch (err) {
@@ -62,13 +81,30 @@ app.get('/api/search', async (req, res) => {
         res.status(500).json({ ok: false, error: err.message || String(err) });
     }
 });
+/**
+ * Endpoint to retrieve a specific expression.
+ * Retrieves detailed information and equivalents for the given expression parameter.
+ */
 app.get('/api/expression', async (req, res) => {
     const expresion = req.query.expresion;
     if (!expresion) {
         return res.status(400).json({ ok: false, error: 'Missing expresion query parameter' });
     }
     try {
-        const rows = await (0, db_1.query)('SELECT * FROM expresiones WHERE expresion = ?', [expresion]);
+        const rows = await (0, db_1.query)(`
+            SELECT 
+            e.id,
+            e.expresion,
+            e.uso,
+            e.ejemplo,
+            e.idioma,
+            e.categoria,
+            eq.idioma AS idioma_equivalente,
+            eq.texto_equivalente
+        FROM expresiones e
+        JOIN equivalencias eq ON eq.expresion_id = e.id
+        WHERE e.expresion = ?;
+            `, [expresion]);
         res.json({ ok: true, rows });
     }
     catch (err) {
@@ -76,12 +112,27 @@ app.get('/api/expression', async (req, res) => {
         res.status(500).json({ ok: false, error: err.message || String(err) });
     }
 });
+/**
+ * Endpoint to retrieve the daily expression.
+ * Fetches the idiom of the day and its equivalents.
+ */
 app.get('/api/daily', async (req, res) => {
     try {
         const rows = await (0, db_1.query)(`
-SELECT di.*, i.*
+SELECT 
+    e.id,
+    e.expresion,
+    e.uso,
+    e.ejemplo,
+    e.idioma,
+    e.categoria,
+    eq.idioma AS idioma_equivalente,
+    eq.texto_equivalente
 FROM daily_idiom AS di
-JOIN expresiones AS i ON di.expresion_id = i.id
+JOIN expresiones AS e 
+    ON di.expresion_id = e.id
+LEFT JOIN equivalencias AS eq 
+    ON eq.expresion_id = e.id
 WHERE di.selected_date = CURDATE();
 `);
         res.json({ ok: true, rows });
@@ -91,9 +142,31 @@ WHERE di.selected_date = CURDATE();
         res.status(500).json({ ok: false, error: err.message || String(err) });
     }
 });
+/**
+ * Endpoint to fetch a random expression.
+ * Selects a random expression and retrieves its equivalents.
+ */
 app.get('/api/random', async (req, res) => {
     try {
-        const rows = await (0, db_1.query)('SELECT * FROM expresiones ORDER BY RAND() LIMIT 1');
+        const rows = await (0, db_1.query)(`
+SELECT 
+    e.id,
+    e.expresion,
+    e.uso,
+    e.ejemplo,
+    e.idioma,
+    e.categoria,
+    eq.idioma AS idioma_equivalente,
+    eq.texto_equivalente
+FROM (
+    SELECT * 
+    FROM expresiones 
+    ORDER BY RAND() 
+    LIMIT 1
+) AS e
+LEFT JOIN equivalencias AS eq 
+    ON eq.expresion_id = e.id;
+`);
         res.json({ ok: true, rows });
     }
     catch (err) {
@@ -101,6 +174,10 @@ app.get('/api/random', async (req, res) => {
         res.status(500).json({ ok: false, error: err.message || String(err) });
     }
 });
+/**
+ * Endpoint to create a new user.
+ * Accepts email and password, inserts new user and returns a token for authentication.
+ */
 app.post('/api/users/new', async (req, res) => {
     const { email, password } = req.body;
     if (!email || !password) {
@@ -117,6 +194,10 @@ app.post('/api/users/new', async (req, res) => {
         res.status(500).json({ ok: false, error: err.message || String(err) });
     }
 });
+/**
+ * Endpoint to login a user.
+ * Verifies email and password, and returns an authentication token if successful.
+ */
 app.post('/api/users/login', async (req, res) => {
     const { email, password } = req.body;
     if (!email || !password) {
@@ -141,6 +222,10 @@ app.get("/api/profile", authMiddleware, async (req, res) => {
     // console.log(rows)
     res.status(200).json(rows[0]);
 });
+/**
+ * Endpoint to upgrade user role.
+ * Updates the user role to premium for the authenticated user.
+ */
 app.get('/api/users/upgrade', authMiddleware, async (req, res) => {
     try {
         const userId = req.user.id;
@@ -155,14 +240,45 @@ app.get('/api/users/upgrade', authMiddleware, async (req, res) => {
         res.status(500).json({ ok: false, error: err.message || String(err) });
     }
 });
-// app.get("/me", (req, res) => {
-//     if (req.session.user) {
-//         res.json(req.session.user);
-//     } else {
-//         res.status(401).json({ error: "Not authenticated" });
-//     }
-// });
+/**
+ * Endpoint to list expressions by language.
+ * Retrieves expressions and their equivalents for the given language parameter.
+ */
+app.get('/api/expressions', async (req, res) => {
+    const language = req.query.language;
+    if (!language) {
+        return res.status(400).json({ ok: false, error: 'Missing language query parameter' });
+    }
+    try {
+        const rows = await (0, db_1.query)(`
+    SELECT 
+        e.id,
+        e.expresion,
+        e.uso,
+        e.ejemplo,
+        e.idioma,
+        e.categoria,
+        e.equivalente,
+        eq.idioma AS idioma_equivalente,
+        eq.texto_equivalente
+    FROM expresiones AS e
+    LEFT JOIN equivalencias AS eq 
+        ON eq.expresion_id = e.id
+    WHERE e.idioma = ?
+    ORDER BY e.expresion ASC;
+    `, [language]);
+        res.json({ ok: true, rows });
+    }
+    catch (err) {
+        console.error('Expressions query failed', err);
+        res.status(500).json({ ok: false, error: err.message || String(err) });
+    }
+});
 const PORT = process.env.PORT ? parseInt(process.env.PORT, 10) : 3000;
+/**
+ * Starts the server and listens on the specified port.
+ * Logs a message confirming server startup.
+ */
 app.listen(PORT, () => {
     console.log(`Servidor corriendo en el puerto ${PORT}`);
 });
