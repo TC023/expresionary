@@ -73,6 +73,7 @@ const langToCode: Record<string, string> = {
   german: 'de'
 }
 
+/** Main component responsible for rendering the dictionary search interface and managing state and effects related to finding and displaying expressions. */
 const Diccionary: React.FC = () => {
 
   const location = useLocation()
@@ -106,6 +107,7 @@ const Diccionary: React.FC = () => {
 
   const debounceTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
 
+/** Handler to display the premium modal based on user authentication status. */
   const handleShowPremium = () => {
     if (!user) {
       setShowModal(true)
@@ -114,6 +116,7 @@ const Diccionary: React.FC = () => {
     }
   }
 
+/** Fetch expressions from the server based on the search query provided by the user. */
   const fetchExpressions = async (searchQuery: string) => {
     try {
       const response = await apiClient.get('/search', {
@@ -126,6 +129,7 @@ const Diccionary: React.FC = () => {
     }
   };
 
+/** Fetch a random expression from the server and update the state with the retrieved data. */
   const fetchRandom = async () => {
     const randomRaw = (await apiClient.get('/random')).data.rows;
     const random = randomRaw.reduce((acc: Expression, curr: ExpressionRaw) => {

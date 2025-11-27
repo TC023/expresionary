@@ -23,6 +23,13 @@ interface AuthRequest extends Request {
     user?: string | jwt.JwtPayload;
 }
 
+/**
+ * Middleware to authenticate requests using JWT.
+ *
+ * @param req - The request object with potential user information.
+ * @param res - The response object used to send back HTTP responses.
+ * @param next - Callback function to move to the next middleware.
+ */
 function authMiddleware(req: AuthRequest, res: Response, next: () => void): void {
     const header = req.headers.authorization;
     if (!header) {
@@ -39,11 +46,23 @@ function authMiddleware(req: AuthRequest, res: Response, next: () => void): void
     }
 }
 
+/**
+ * Endpoint to test the API server connectivity.
+ *
+ * @param req - The request object.
+ * @param res - The response object used to send back HTTP responses.
+ */
 app.get('/api/test', (req: Request, res: Response) => {
     res.json({msg: 'hi from backend'})
 })
 
 // simple endpoint that runs a small query against MySQL
+/**
+ * Endpoint for testing database connectivity and a simple query.
+ *
+ * @param req - The request object.
+ * @param res - The response object used to send back HTTP responses.
+ */
 app.get('/api/dbtest', async (req: Request, res: Response) => {
     try {
         // ensure pool can connect
@@ -57,6 +76,12 @@ app.get('/api/dbtest', async (req: Request, res: Response) => {
     }
 })
 
+/**
+ * Endpoint to search expressions in the database using a query parameter.
+ *
+ * @param req - The request object containing search query.
+ * @param res - The response object used to send back HTTP responses.
+ */
 app.get('/api/search', async (req: Request, res: Response) => {
     const search = req.query.search as string;
 
@@ -76,6 +101,12 @@ app.get('/api/search', async (req: Request, res: Response) => {
     }
 });
 
+/**
+ * Endpoint to get details of an expression from the database.
+ *
+ * @param req - The request object containing expression query.
+ * @param res - The response object used to send back HTTP responses.
+ */
 app.get('/api/expression', async (req: Request, res: Response) => {
     const expresion = req.query.expresion as string;
 
@@ -105,6 +136,12 @@ app.get('/api/expression', async (req: Request, res: Response) => {
     }
 });
 
+/**
+ * Endpoint to get the daily expression from the database.
+ *
+ * @param req - The request object.
+ * @param res - The response object used to send back HTTP responses.
+ */
 app.get('/api/daily', async (req: Request, res: Response) => {
     try {
         const rows = await query(`
@@ -131,6 +168,12 @@ WHERE di.selected_date = CURDATE();
     }
 });
 
+/**
+ * Endpoint to get a random expression from the database.
+ *
+ * @param req - The request object.
+ * @param res - The response object used to send back HTTP responses.
+ */
 app.get('/api/random', async (req: Request, res: Response) => {
     try {
         const rows = await query(`
@@ -159,6 +202,12 @@ LEFT JOIN equivalencias AS eq
     }
 });
 
+/**
+ * Endpoint to create a new user in the database.
+ *
+ * @param req - The request object containing user details.
+ * @param res - The response object used to send back HTTP responses.
+ */
 app.post('/api/users/new', async (req: Request, res: Response) => {
     const { email, password } = req.body; 
 
@@ -182,6 +231,12 @@ app.post('/api/users/new', async (req: Request, res: Response) => {
     }
 });
 
+/**
+ * Endpoint for user login and token generation.
+ *
+ * @param req - The request object containing login credentials.
+ * @param res - The response object used to send back HTTP responses.
+ */
 app.post('/api/users/login', async (req: Request, res: Response) => {
     const { email, password } = req.body;
 
@@ -207,12 +262,24 @@ app.post('/api/users/login', async (req: Request, res: Response) => {
     }
 });
 
+/**
+ * Endpoint to get the authenticated user's profile details.
+ *
+ * @param req - The request object with user information.
+ * @param res - The response object used to send back HTTP responses.
+ */
 app.get("/api/profile", authMiddleware, async (req: AuthRequest, res: Response) => {
     const rows = await query("SELECT id, email, role FROM usuario WHERE id = ?", [(req.user as any).id]) as RowDataPacket[];
     // console.log(rows)
     res.status(200).json(rows[0]);
 });
 
+/**
+ * Endpoint to upgrade a user's role to premium.
+ *
+ * @param req - The request object with user information.
+ * @param res - The response object used to send back HTTP responses.
+ */
 app.get('/api/users/upgrade', authMiddleware, async (req: AuthRequest, res: Response) => {
     try {
         const userId = (req.user as any).id;
@@ -233,6 +300,12 @@ app.get('/api/users/upgrade', authMiddleware, async (req: AuthRequest, res: Resp
     }
 });
 
+/**
+ * Endpoint to get expressions based on language query parameter.
+ *
+ * @param req - The request object containing language query.
+ * @param res - The response object used to send back HTTP responses.
+ */
 app.get('/api/expressions', async (req: Request, res: Response) => {
     const language = req.query.language as string;
 
@@ -266,6 +339,9 @@ app.get('/api/expressions', async (req: Request, res: Response) => {
 });
 
 const PORT = process.env.PORT ? parseInt(process.env.PORT, 10) : 3000;
+/**
+ * Starts the Express server on the specified port.
+ */
 app.listen(PORT, () => {
     console.log(`Servidor corriendo en el puerto ${PORT}`);
 });
